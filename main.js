@@ -28,7 +28,9 @@ function checkForWinner() {
     });
 
     if (isStalemate && cells.every(cell => cell.innerText.trim() !== "")) {
-        alert("It's a stalemate!");
+        if (confirm("It's a stalemate! Do you want to play again?")) {
+            resetGame(); // If the player chooses to play again, reset the game
+        }
     }
 }
 
@@ -47,3 +49,11 @@ cells.forEach(function (cell) {
         // alert("clicked")
     })
 })
+
+function resetGame() {
+    cells.forEach(function (cell) {
+        cell.innerText = ""
+        cell.classList.remove("highlight")
+    })
+    currentPlayer = "X"
+}

@@ -16,20 +16,30 @@ let winningCombinations = [
 ]
 
 function checkForWinner() {
-    let isStalemate = true; // Assume a stalemate initially
-
+    let winner = null // Initialize winner as null
+    let winningCombination = null; // Initialize the winning combination as null
+    console.log("im")
     winningCombinations.forEach(function (combination) {
-        let check = combination.every(idx => cells[idx].innerText.trim() == currentPlayer)
+        let check = combination.every(idx => cells[idx].innerText.trim() === currentPlayer);
         if (check) {
-            highlightCells(combination);
-            alert(currentPlayer + " is the WINNER!");
-            isStalemate = false; // If there's a winner, it's not a stalemate
+            winner = currentPlayer; // Set the winner
+            winningCombination = combination// Set the winning combination
+            highlightCells(winningCombination) // Highlight the winning combination
+            console.log("now")
         }
     });
 
-    if (isStalemate && cells.every(cell => cell.innerText.trim() !== "")) {
-        if (confirm("It's a stalemate! Do you want to play again?")) {
-            resetGame(); // If the player chooses to play again, reset the game
+    if (winner) {
+        highlightCells(winningCombination)
+        alert(winner + " is the WINNER!")
+        console.log("here")
+        if (confirm("Do you want to play again?")) {
+            resetGame();
+        }
+    } else if (cells.every(cell => cell.innerText.trim() !== "")) {
+        alert("It's a stalemate!")
+        if (confirm("Do you want to play again?")) {
+            resetGame();
         }
     }
 }

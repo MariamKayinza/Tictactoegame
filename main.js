@@ -16,14 +16,20 @@ let winningCombinations = [
 ]
 
 function checkForWinner() {
+    let isStalemate = true; // Assume a stalemate initially
 
     winningCombinations.forEach(function (combination) {
         let check = combination.every(idx => cells[idx].innerText.trim() == currentPlayer)
         if (check) {
-            highlightCells(combination)
-            alert(currentPlayer + "Is the WINNER!")
+            highlightCells(combination);
+            alert(currentPlayer + " is the WINNER!");
+            isStalemate = false; // If there's a winner, it's not a stalemate
         }
-    })
+    });
+
+    if (isStalemate && cells.every(cell => cell.innerText.trim() !== "")) {
+        alert("It's a stalemate!");
+    }
 }
 
 function highlightCells(combination) {
